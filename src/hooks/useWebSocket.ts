@@ -37,6 +37,10 @@ export function useWebSocket() {
     });
   }
 
+  function confirmRouteAlert(alertId: string) {
+    server.confirmRouteAlert(alertId);
+  }
+
   function disconnect() {
     server.disconnect();
     status.value = 'closed';
@@ -45,5 +49,5 @@ export function useWebSocket() {
 
   onBeforeUnmount(disconnect);
 
-  return { status, error, connect, disconnect };
+  return { status, error, connect, disconnect, confirmRouteAlert };
 }

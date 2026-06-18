@@ -15,3 +15,14 @@ export interface RouteMonitor {
   delayMinutes: number;
   stations: RouteStation[];
 }
+
+export interface RouteDelayAlert {
+  id: string;
+  routeId: string;
+  routeName: string;
+  message: string;
+  level: 'warning' | 'critical';
+  delayMinutes: number;
+  time: string;
+  confirmed: boolean;
+}

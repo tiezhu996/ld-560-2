@@ -4,7 +4,13 @@
     <div v-if="!mapReady" class="fallback-map">
       <p>{{ mapFallbackNotice }}</p>
       <div class="geo-grid">
-        <span v-for="point in points" :key="point.id" :class="['geo-point', point.kind]" :style="point.style" :title="point.label"></span>
+        <span
+          v-for="point in points"
+          :key="point.id"
+          :class="['geo-point', point.kind, point.highlight]"
+          :style="point.style"
+          :title="point.label"
+        ></span>
       </div>
     </div>
   </section>
@@ -21,6 +27,7 @@ interface MapPoint {
   lng: number;
   label: string;
   kind: 'vehicle' | 'charging' | 'station';
+  highlight?: 'normal' | 'warning' | 'critical';
 }
 
 const props = defineProps<{ points: MapPoint[] }>();
@@ -39,11 +46,14 @@ const points = computed(() => props.points.map((point) => ({
 
 function renderMarkers(AMap: any) {
   markers.forEach((marker) => marker.setMap(null));
-  markers = props.points.map((point) => new AMap.Marker({
-    position: [point.lng, point.lat],
-    title: point.label,
-    content: `<div class="amap-dot ${point.kind}"></div>`
-  }));
+  markers = props.points.map((point) => {
+    const highlightClass = point.highlight ? `highlight-${point.highlight}` : '';
+    return new AMap.Marker({
+      position: [point.lng, point.lat],
+      title: point.label,
+      content: `<div class="amap-dot ${point.kind} ${highlightClass}"></div>`
+    });
+  });
   map?.add(markers);
 }
 

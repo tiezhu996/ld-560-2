@@ -82,7 +82,32 @@ h2 { font-size: 16px; color: #d5e9dc; margin-bottom: 10px; font-weight: 700; }
 .geo-point { position: absolute; width: 9px; height: 9px; border-radius: 50%; background: $green; box-shadow: 0 0 0 5px rgba(64,198,164,.16); }
 .geo-point.charging { background: $gold; box-shadow: 0 0 0 5px rgba(242,193,78,.16); }
 .geo-point.station { background: #6e9bff; box-shadow: 0 0 0 5px rgba(110,155,255,.16); }
+.geo-point.warning { background: $gold; box-shadow: 0 0 0 6px rgba(242,193,78,.25); width: 11px; height: 11px; }
+.geo-point.critical {
+  background: $red;
+  box-shadow: 0 0 0 6px rgba(244,109,117,.28);
+  width: 13px;
+  height: 13px;
+  animation: geo-pulse 1.6s ease-in-out infinite;
+}
+@keyframes geo-pulse {
+  0%, 100% { box-shadow: 0 0 0 6px rgba(244,109,117,.28); }
+  50% { box-shadow: 0 0 0 14px rgba(244,109,117,0); }
+}
 :global(.amap-dot) { width: 12px; height: 12px; border-radius: 50%; background: $green; border: 2px solid #06211b; }
+:global(.amap-dot.station) { background: #6e9bff; }
+:global(.amap-dot.highlight-warning) { background: $gold; width: 14px; height: 14px; box-shadow: 0 0 0 4px rgba(242,193,78,.35); }
+:global(.amap-dot.highlight-critical) {
+  background: $red;
+  width: 16px;
+  height: 16px;
+  box-shadow: 0 0 0 4px rgba(244,109,117,.4);
+  animation: amap-pulse 1.6s ease-in-out infinite;
+}
+@keyframes amap-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(244,109,117,.4); }
+  50% { box-shadow: 0 0 0 12px rgba(244,109,117,0); }
+}
 
 .alert-banner { display: grid; gap: 8px; }
 .alert-item { display: grid; grid-template-columns: 58px 76px 1fr auto; gap: 8px; align-items: center; padding: 9px; border-radius: 7px; background: rgba(244,109,117,.10); border: 1px solid rgba(244,109,117,.24); }
