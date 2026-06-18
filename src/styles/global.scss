@@ -1,0 +1,103 @@
+@use './variables' as *;
+
+:root {
+  --screen-scale: 1;
+  color: #eef6ef;
+  background: #08110f;
+  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: radial-gradient(circle at 50% 10%, #16382f 0, #08110f 42%, #050807 100%); }
+button, select { font: inherit; }
+
+.screen-shell {
+  min-height: 100vh;
+  padding: 18px clamp(14px, 2vw, 34px) 30px;
+  overflow: hidden;
+}
+
+.top-nav {
+  height: 44px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.top-nav a, button, select {
+  color: $text;
+  background: rgba(64, 198, 164, .08);
+  border: 1px solid $line;
+  border-radius: 7px;
+  padding: 9px 14px;
+  text-decoration: none;
+}
+
+.top-nav a.router-link-active, button.active {
+  background: $green;
+  color: #06110e;
+}
+
+.dashboard { min-height: calc(100vh - 90px); }
+.page-grid { display: grid; gap: 16px; }
+.page-grid.three { grid-template-columns: minmax(250px, .75fr) minmax(420px, 1.7fr) minmax(270px, .9fr); }
+.page-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 16px; }
+.stack { display: grid; gap: 14px; align-content: start; }
+.page-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+
+h1, h2, p { margin: 0; }
+h1 { font-size: clamp(28px, 3vw, 54px); letter-spacing: 0; line-height: .95; }
+h2 { font-size: 16px; color: #d5e9dc; margin-bottom: 10px; font-weight: 700; }
+
+.panel, .data-card, .center-stage {
+  background: $panel;
+  border: 1px solid $line;
+  border-radius: 8px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.panel, .center-stage { padding: 16px; }
+.data-card { padding: 16px; min-height: 106px; }
+.data-card p, .data-card small, .row span, .route-list span { color: $muted; }
+.data-card strong { display: block; margin: 8px 0; font-size: 32px; color: $green; }
+.row { display: flex; justify-content: space-between; border-top: 1px solid $line; padding: 9px 0; }
+.chart-panel { min-height: 260px; }
+.chart-panel.tall { min-height: 360px; }
+.chart-box { width: 100%; height: 230px; }
+.tall .chart-box { height: 318px; }
+
+.center-stage { min-height: 720px; display: flex; flex-direction: column; }
+.map-wide { height: 430px; }
+.map-panel { position: relative; flex: 1; min-height: 320px; overflow: hidden; border-radius: 8px; background: #0d1916; }
+.map-root, .fallback-map { position: absolute; inset: 0; }
+.fallback-map p { position: absolute; z-index: 2; left: 14px; top: 12px; color: $muted; font-size: 13px; }
+.geo-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(64,198,164,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(64,198,164,.09) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+.geo-grid::after { content: ""; position: absolute; inset: 12%; border: 1px solid rgba(242,193,78,.22); transform: rotate(-8deg); }
+.geo-point { position: absolute; width: 9px; height: 9px; border-radius: 50%; background: $green; box-shadow: 0 0 0 5px rgba(64,198,164,.16); }
+.geo-point.charging { background: $gold; box-shadow: 0 0 0 5px rgba(242,193,78,.16); }
+.geo-point.station { background: #6e9bff; box-shadow: 0 0 0 5px rgba(110,155,255,.16); }
+:global(.amap-dot) { width: 12px; height: 12px; border-radius: 50%; background: $green; border: 2px solid #06211b; }
+
+.alert-banner { display: grid; gap: 8px; }
+.alert-item { display: grid; grid-template-columns: 58px 76px 1fr auto; gap: 8px; align-items: center; padding: 9px; border-radius: 7px; background: rgba(244,109,117,.10); border: 1px solid rgba(244,109,117,.24); }
+.alert-item.warning { background: rgba(242,193,78,.10); border-color: rgba(242,193,78,.24); }
+.alert-item p { color: $text; font-size: 13px; }
+.alert-item span { color: $muted; font-size: 12px; }
+
+.route-list { display: grid; gap: 10px; align-content: start; }
+.route-list button { text-align: left; display: grid; gap: 4px; }
+.stream { max-height: 330px; overflow: hidden; }
+.stream p { padding: 7px 0; border-top: 1px solid $line; color: #d5e9dc; font-size: 13px; }
+.stream span { color: $muted; margin-right: 10px; }
+.segmented { display: flex; gap: 6px; }
+
+@media (max-width: 1100px) {
+  .page-grid.three, .page-grid.two { grid-template-columns: 1fr; }
+  .center-stage { min-height: 480px; }
+}
